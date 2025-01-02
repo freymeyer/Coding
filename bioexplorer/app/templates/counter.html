@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h1> Counter </h1>
+
+Count is {{counter}}
+
+<form method="POST">
+    {% csrf_token %}
+    <button type="submit" name="increment">Increment</button>
+    <button type="submit" name="decrement">Decrement</button>
+    <button type="submit" name="reset">Reset</button>
+</form>
+
+{% endblock %}
