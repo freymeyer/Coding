@@ -1,5 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from .models import ToDoItem
+from .forms import CalculatorForm
 
 # Create your views here.
 def home(request):
@@ -45,3 +46,28 @@ def Password(request):
     return(render(request,"passwordmaker.html",{"password": request.session['password']}))        
 
 
+def calculator(request):
+    result = None
+
+    if request.method == 'POST':
+        form = CalculatorForm(request.POST)
+        if form.is_valid():
+            num1 = form.cleaned_data['num1']
+            operator = form.cleaned_data['operator']
+            num2 = form.cleaned_data['num2']
+
+            if operator == '+':
+                result = num1 + num2
+            elif operator == '-':
+                result = num1 - num2
+            elif operator == '*':
+                result = num1 * num2
+            elif operator == '/':
+                result = num1 / num2
+    else:
+        form = CalculatorForm()
+
+ 
+
+    
+    return(render(request, 'calculator.html', {'form':form, 'result':result}))    
